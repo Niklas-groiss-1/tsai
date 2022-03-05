@@ -44,6 +44,9 @@ class TSClassifier(Learner):
             elif hasattr(dls, 'cat') and not dls.cat: loss_func = MSELossFlat()
             elif hasattr(dls, 'train_ds') and hasattr(dls.train_ds, 'loss_func'): loss_func = dls.train_ds.loss_func
             else: loss_func = CrossEntropyLossFlat()
+        print("lr", lr)
+        print("Optim", opt_func)
+        print("loss", loss_func)
 
         # Model
         if init is True:
