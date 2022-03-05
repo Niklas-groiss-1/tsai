@@ -30,7 +30,7 @@ class ResBlock(Module):
 
 class ResNet(Module):
     def __init__(self, c_in, c_out):
-        nf = 64
+        nf = 128
         kss=[7, 5, 3]
         self.resblock1 = ResBlock(c_in, nf, kss=kss)
         self.resblock2 = ResBlock(nf, nf * 2, kss=kss)
