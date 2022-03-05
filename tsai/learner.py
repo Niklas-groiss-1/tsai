@@ -12,6 +12,7 @@ from fastai.losses import MSELossFlat
 from .imports import *
 from .models.utils import *
 from .models.InceptionTimePlus import *
+from .models.RNN_FCN import LSTM_FCN
 
 # Cell
 @patch
@@ -72,7 +73,10 @@ def save_all(self:Learner, path='export', dls_fname='dls', model_fname='model', 
     pv(f"dls_fname     = '{dls_fnames}'", verbose)
     pv(f"model_fname   = '{model_fname}.pth'", verbose)
     pv(f"learner_fname = '{learner_fname}.pkl'", verbose)
-
+def get_metrics(data):
+    df=pd.DataFrame(data)
+    
+    df.to_csv('/gdrive/MyDrive/Masterthesis/ResNet/results.csv', mode='a')
 
 def load_all(path='export', dls_fname='dls', model_fname='model', learner_fname='learner', device=None, pickle_module=pickle, verbose=False):
 
@@ -182,7 +186,8 @@ def plot_metrics(self: Recorder, nrows=None, ncols=None, figsize=None, final_los
         axs[ax_idx].set_xlim(xs[0], xs[-1])
         axs[ax_idx].legend(loc='best')
         axs[ax_idx].set_title(title)
-    plt.show()
+    #plt.show()
+    return get_metrics(metrics)
 
 
 @patch
@@ -485,7 +490,7 @@ def ts_learner(dls, arch=None, c_in=None, c_out=None, seq_len=None, d=None, spli
 
     if isinstance(arch, nn.Module): model = arch
     else:
-        if arch is None: arch = InceptionTimePlus
+        if arch is None: arch = LSTM_FCN 
         elif isinstance(arch, str): arch = get_arch(arch)
         model = build_ts_model(arch, dls=dls, c_in=c_in, c_out=c_out, seq_len=seq_len, d=d, **kwargs)
     if hasattr(model, "backbone") and hasattr(model, "head"):
