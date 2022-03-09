@@ -9,7 +9,7 @@ from .layers import *
 # Cell
 class _RNN_FCN_Base(Module):
     def __init__(self, c_in, c_out, seq_len=None, hidden_size=100, rnn_layers=1, bias=True, cell_dropout=0, rnn_dropout=0.8, bidirectional=False, shuffle=True,
-                 fc_dropout=0., conv_layers=[128, 256, 128], kss=[7, 5, 3], se=0):
+                 fc_dropout=0., conv_layers=[128, 256,512,1024,512,256,128], kss=[13,11,9,7, 5, 3,1], se=0):
 
         if shuffle: assert seq_len is not None, 'need seq_len if shuffle=True'
 
@@ -26,6 +26,16 @@ class _RNN_FCN_Base(Module):
         self.convblock2 = ConvBlock(conv_layers[0], conv_layers[1], kss[1])
         self.se2 = SqueezeExciteBlock(conv_layers[1], se) if se != 0 else noop
         self.convblock3 = ConvBlock(conv_layers[1], conv_layers[2], kss[2])
+        
+        self.se3 = SqueezeExciteBlock(conv_layers[2], se) if se != 0 else noop
+        self.convblock4 = ConvBlock(conv_layers[2], conv_layers[3], kss[3])
+        
+        self.se4 = SqueezeExciteBlock(conv_layers[3], se) if se != 0 else noop
+        self.convblock5 = ConvBlock(conv_layers[3], conv_layers[4], kss[4])
+        self.se5 = SqueezeExciteBlock(conv_layers[4], se) if se != 0 else noop
+        self.convblock6 = ConvBlock(conv_layers[4], conv_layers[5], kss[5])
+        self.se6 = SqueezeExciteBlock(conv_layers[5], se) if se != 0 else noop
+        self.convblock7 = ConvBlock(conv_layers[5], conv_layers[6], kss[6])
         self.gap = GAP1d(1)
 
         # Common
