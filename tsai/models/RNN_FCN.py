@@ -59,6 +59,14 @@ class _RNN_FCN_Base(Module):
         x = self.convblock2(x)
         x = self.se2(x)
         x = self.convblock3(x)
+        x = self.se3(x)
+        x = self.convblock4(x)
+        x = self.se4(x)
+        x = self.convblock5(x)
+        x = self.se5(x)
+        x = self.convblock6(x)
+        x = self.se6(x)
+        x = self.convblock7(x)
         x = self.gap(x)
 
         # Concat
