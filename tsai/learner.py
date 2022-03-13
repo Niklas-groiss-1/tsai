@@ -76,7 +76,7 @@ def save_all(self:Learner, path='export', dls_fname='dls', model_fname='model', 
 def get_metrics(data):
     df=pd.DataFrame(data)
     
-    df.to_csv('/gdrive/MyDrive/Masterthesis/ResNet/results.csv', mode='a')
+    df.to_csv('/gdrive/MyDrive/Masterthesis/MLP/results.csv', mode='a')
 
 def load_all(path='export', dls_fname='dls', model_fname='model', learner_fname='learner', device=None, pickle_module=pickle, verbose=False):
 
