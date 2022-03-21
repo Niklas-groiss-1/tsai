@@ -9,7 +9,7 @@ from .layers import *
 
 # Cell
 class MLP(Module):
-    def __init__(self, c_in, c_out, seq_len, layers=[750,750,750], ps=[0.1, 0.2, 0.2], act=nn.ReLU(inplace=True),
+    def __init__(self, c_in, c_out, seq_len, layers=[250,250,250], ps=[0.1, 0.2, 0.2], act=nn.ReLU(inplace=True),
                  use_bn=False, bn_final=False, lin_first=False, fc_dropout=0., y_range=None): #
         print("LAYERS",layers)
         print("PS", ps)
