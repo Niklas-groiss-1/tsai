@@ -9,7 +9,7 @@ from .utils import *
 
 # Cell
 class ResBlock(Module):
-    def __init__(self, ni, nf, kss=[ 5,3,1]):
+    def __init__(self, ni, nf, kss=[ 7,5,3]):
         self.convblock1 = ConvBlock(ni, nf, kss[0])
         self.convblock2 = ConvBlock(nf, nf, kss[1])
         self.convblock3 = ConvBlock(nf, nf, kss[2], act=None)
@@ -31,7 +31,7 @@ class ResBlock(Module):
 class ResNet(Module):
     def __init__(self, c_in, c_out):
         nf = 64
-        kss=[ 5, 3,1]
+        kss=[ 7,5, 3]
         self.resblock1 = ResBlock(c_in, nf, kss=kss)
         self.resblock2 = ResBlock(nf, nf * 2, kss=kss)
         self.resblock3 = ResBlock(nf * 2, nf * 2, kss=kss)
